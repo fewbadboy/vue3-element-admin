@@ -7,6 +7,7 @@ module.exports = {
   },
   extends: [
     'plugin:vue/vue3-essential',
+    'plugin:vue/vue3-strongly-recommended',
     '@vue/standard',
     'eslint:recommended'
   ],
@@ -20,6 +21,14 @@ module.exports = {
   rules: {
     'vue/multi-word-component-names': [2, {
       ignores: []
+    }],
+    'vue/max-attributes-per-line': [2, {
+      singleline: {
+        max: 1
+      },
+      multiline: {
+        max: 1
+      }
     }],
     'accessor-pairs': 2,
     'arrow-spacing': [2, {
