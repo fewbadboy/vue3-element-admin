@@ -12,9 +12,15 @@ module.exports = {
   ],
   parserOptions: {
     parser: '@babel/eslint-parser',
-    sourceType: 'module'
+    sourceType: 'module',
+    ecmaFeatures: {
+      jsx: true
+    }
   },
   rules: {
+    'vue/multi-word-component-names': [2, {
+      ignores: []
+    }],
     'accessor-pairs': 2,
     'arrow-spacing': [2, {
       before: true,
