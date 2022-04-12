@@ -1,14 +1,14 @@
 <template>
   <!-- 测试 -->
-  <div
-    a="1"
-    b="2"
-  />
+  <div a="1" b="2" />
 </template>
 
 <script>
 export default {
-
+  name: 'ToDo',
+  data() {
+    ''
+  }
 }
 </script>
 
