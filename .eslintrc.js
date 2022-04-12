@@ -22,8 +22,25 @@ module.exports = {
     'vue/multi-word-component-names': [2, {
       ignores: []
     }],
+    'vue/no-arrow-functions-in-watch': 2,
+    'vue/no-async-in-computed-properties': 2,
+    'vue/no-computed-properties-in-data': 2,
+    'vue/no-dupe-keys': 2,
+    'vue/no-dupe-v-else-if': 2,
+    'vue/no-duplicate-attributes': [2, {
+      allowCoexistClass: true,
+      allowCoexistStyle: true
+    }],
+    'vue/no-mutating-props': 2,
+    'vue/no-reserved-keys': 2,
+    'vue/no-reserved-props': [2, {
+      vueVersion: 3
+    }],
+    'vue/no-side-effects-in-computed-properties': 2,
+    'vue/no-template-key': 2,
+    'vue/no-textarea-mustache': 2,
     'vue/max-attributes-per-line': [2, {
-      singleline: 5,
+      singleline: 6,
       multiline: {
         max: 1
       }
