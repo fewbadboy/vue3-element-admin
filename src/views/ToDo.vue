@@ -11,7 +11,9 @@
 export default {
   name: 'ToDo',
   data() {
-    ''
+    return {
+      // do
+    }
   }
 }
 </script>
