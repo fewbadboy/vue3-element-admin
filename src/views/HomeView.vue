@@ -16,6 +16,9 @@ export default {
   name: 'HomeView',
   components: {
     HelloWorld
+  },
+  mounted() {
+    console.log(this.$router)
   }
 }
 </script>

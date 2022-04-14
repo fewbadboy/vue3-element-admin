@@ -17,6 +17,7 @@ const routes = [
     path: '/home',
     name: 'home',
     component: Layout,
+    redirect: '/home/index',
     children: [
       {
         path: 'index',
@@ -28,6 +29,7 @@ const routes = [
     path: '/about',
     name: 'about',
     component: Layout,
+    redirect: '/about/index',
     children: [
       {
         path: 'index',

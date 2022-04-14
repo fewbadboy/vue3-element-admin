@@ -1,4 +1,5 @@
 import { createApp } from 'vue'
+import Cookies from 'js-cookie'
 import 'normalize.css/normalize.css'
 import ElementPlus from 'element-plus'
 import 'element-plus/dist/index.css'
@@ -15,6 +16,9 @@ import './permission'
 createApp(App)
   .use(store)
   .use(router)
-  .use(ElementPlus, { locale: getLanguage() === 'zh' ? elementZhLocale : elementEnLocale })
+  .use(ElementPlus, {
+    size: Cookies.get('size') || 'medium',
+    locale: getLanguage() === 'zh' ? elementZhLocale : elementEnLocale
+  })
   .use(VueI18n)
   .mount('#app')

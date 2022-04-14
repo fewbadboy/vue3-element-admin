@@ -1,8 +1,16 @@
+const { networkInterfaces } = require('os')
 const { title } = require('./src/settings')
 
 const port = process.env.port || 8080
 
 const name = title || 'Vue3 Element Admin'
+
+let host = ''
+for (const item of networkInterfaces()?.WLAN) {
+  if (item.family.includes('IPv4')) {
+    host = item.address
+  }
+}
 
 module.exports = {
   /**
@@ -18,6 +26,8 @@ module.exports = {
   // https://github.com/vuejs/vue-cli 4.5.4 used webpack 5
   devServer: {
     port,
+    host,
+    open: true,
     client: {
       overlay: {
         errors: true,
