@@ -1,12 +1,16 @@
 import { createApp } from 'vue'
+import 'normalize.css/normalize.css'
 import ElementPlus from 'element-plus'
 import 'element-plus/dist/index.css'
+import '@/styles/index.scss'
 import elementEnLocale from 'element-plus/lib/locale/lang/en'
 import elementZhLocale from 'element-plus/lib/locale/lang/zh-cn'
 import VueI18n, { getLanguage } from './lang'
 import App from './App.vue'
 import router from './router'
 import store from './store'
+
+import './permission'
 
 createApp(App)
   .use(store)

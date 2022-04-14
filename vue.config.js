@@ -1,9 +1,4 @@
-const path = require('path')
 const { title } = require('./src/settings')
-
-function resolve(dir) {
-  return path.resolve(__dirname, dir)
-}
 
 const port = process.env.port || 8080
 
@@ -32,12 +27,7 @@ module.exports = {
   },
   // https://github.com/survivejs/webpack-merge
   configureWebpack: {
-    name,
-    resolve: {
-      alias: {
-        '@': resolve('src')
-      }
-    }
+    name
   },
   // https://github.com/neutrinojs/webpack-chain
   chainWebpack: config => {

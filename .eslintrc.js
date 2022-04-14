@@ -19,9 +19,7 @@ module.exports = {
     }
   },
   rules: {
-    'vue/multi-word-component-names': [2, {
-      ignores: []
-    }],
+    'vue/multi-word-component-names': 0,
     'vue/no-arrow-functions-in-watch': 2,
     'vue/no-async-in-computed-properties': 2,
     'vue/no-computed-properties-in-data': 2,
