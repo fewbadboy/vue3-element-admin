@@ -6,9 +6,10 @@ const port = process.env.port || 8080
 const name = title || 'Vue3 Element Admin'
 
 let host = ''
-for (const item of networkInterfaces()?.WLAN) {
+for (const item of networkInterfaces().WLAN || networkInterfaces()['以太网']) {
   if (item.family.includes('IPv4')) {
     host = item.address
+    break
   }
 }
 
@@ -33,7 +34,8 @@ module.exports = {
         errors: true,
         warnings: false
       }
-    }
+    },
+    setupMiddlewares: require('./mock')
   },
   // https://github.com/survivejs/webpack-merge
   configureWebpack: {
