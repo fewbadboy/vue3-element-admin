@@ -43,7 +43,7 @@ server.interceptors.response.use(
    */
   response => {
     const { data, data: { code, message }} = response
-    if (code !== '200') {
+    if (code !== 200) {
       ElMessage({
         type: 'error',
         message

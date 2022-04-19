@@ -7,3 +7,19 @@ export function login(data) {
     data
   })
 }
+
+export function getInfo(token) {
+  return request({
+    url: '/user/login',
+    method: 'get',
+    params: { token }
+  })
+}
+
+export function logout(data) {
+  return request({
+    url: '/user/logout',
+    method: 'post',
+    data
+  })
+}

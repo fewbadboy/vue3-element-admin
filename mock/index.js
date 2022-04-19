@@ -4,9 +4,29 @@ module.exports = (middlewares, devServer) => {
   }
 
   devServer.app.post('/user/login', (request, response) => {
-    console.log(request)
     response.json({
-      name: 'a'
+      code: 200,
+      data: {
+        token: 'usertoken'
+      }
+    })
+  })
+
+  devServer.app.post('/user/Info', (request, response) => {
+    response.json({
+      code: 200,
+      data: {
+        name: 'Admin',
+        roles: ['admin'],
+        avatar: 'https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif'
+      }
+    })
+  })
+
+  devServer.app.post('/user/logout', (request, response) => {
+    response.json({
+      code: 200,
+      data: 'success'
     })
   })
 

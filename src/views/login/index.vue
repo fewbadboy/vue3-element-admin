@@ -3,10 +3,12 @@
 </template>
 
 <script>
-// import { login } from '@/api/user'
+import { login } from '@/api/user'
 export default {
   mounted() {
-    // d0
+    login({ username: 'admin' }).then(res => {
+      console.log(res)
+    })
   }
 }
 </script>
