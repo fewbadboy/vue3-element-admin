@@ -3,14 +3,14 @@ module.exports = (middlewares, devServer) => {
     throw new Error('webpack-dev-server is not defined')
   }
 
-  devServer.app.post('/login', (request, response) => {
+  devServer.app.post('/user/login', (request, response) => {
+    console.log(request)
     response.json({
       name: 'a'
     })
   })
 
   middlewares.unshift((req, res, next) => {
-    console.log('Before Each Route')
     next()
   })
 
