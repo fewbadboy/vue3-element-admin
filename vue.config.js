@@ -43,6 +43,6 @@ module.exports = {
   },
   // https://github.com/neutrinojs/webpack-chain
   chainWebpack: config => {
-    // do
+    config.plugins.delete('prefetch')
   }
 }
