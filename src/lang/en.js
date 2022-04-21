@@ -1,7 +1,7 @@
 export default {
   login: {
     title: 'Login Form',
-    LogIn: 'Login',
+    login: 'Login',
     username: 'Username',
     password: 'Password'
   }
