@@ -47,7 +47,7 @@ module.exports = {
     name
   },
   // https://github.com/neutrinojs/webpack-chain
-  chainWebpack: config => {
+  chainWebpack(config) {
     config.plugins.delete('prefetch')
 
     config.module
@@ -66,32 +66,32 @@ module.exports = {
       })
       .end()
 
-    // config
-    //   .when(process.env.NODE_ENV !== 'development',
-    //     config => {
-    //       config
-    //         .optimazation.splitChunks({
-    //           chunks: 'all',
-    //           name: (module, chunks, cacheGroupKey) => `chunk-${cacheGroupKey}`,
-    //           cacheGroups: {
-    //             libs: {
-    //               test: /[\\/]node_modules[\\/]/,
-    //               priority: 10
+    config
+      .when(process.env.NODE_ENV !== 'development',
+        config => {
+          config
+            .optimization.splitChunks({
+              chunks: 'all',
+              name: (module, chunks, cacheGroupKey) => `chunk-${cacheGroupKey}`,
+              cacheGroups: {
+                elementPlus: {
+                  test: /[\\/]node_modules[\\/]_?element-plus(.*)/,
+                  priority: 20
+                },
+                libs: {
+                  test: /[\\/]node_modules[\\/]/,
+                  priority: 10
 
-    //             },
-    //             elementPlus: {
-    //               test: /[\\/]node_modules[\\/]_?element-plus(.*)/,
-    //               priority: 20
-    //             },
-    //             commons: {
-    //               test: resolve('src/components'),
-    //               priority: 5,
-    //               reuseExistingChunk: true
-    //             }
-    //           }
-    //         })
-    //       config.optimazation.runtimeChunk('single')
-    //     }
-    //   )
+                },
+                commons: {
+                  test: resolve('src/components'),
+                  priority: 5,
+                  reuseExistingChunk: true
+                }
+              }
+            })
+          config.optimization.runtimeChunk('single')
+        }
+      )
   }
 }

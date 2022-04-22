@@ -11,6 +11,9 @@ import App from './App.vue'
 import router from './router'
 import store from './store'
 
+import SvgIcon from '@/components/SvgIcon'
+
+import './icons'
 import './permission'
 
 createApp(App)
@@ -21,4 +24,5 @@ createApp(App)
     locale: getLanguage() === 'zh' ? elementZhLocale : elementEnLocale
   })
   .use(VueI18n)
+  .component('svg-icon', SvgIcon)
   .mount('#app')
