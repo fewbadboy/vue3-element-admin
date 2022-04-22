@@ -1,17 +1,43 @@
 <template>
-  <svg-icon icon-class="language" />
+  <el-dropdown @command="handleSetLanguage">
+    <svg-icon icon-class="language" />
+    <template #dropdown>
+      <el-dropdown-menu>
+        <el-dropdown-item :disabled="lanuage === 'zh'" command="zh">
+          中文
+        </el-dropdown-item>
+        <el-dropdown-item :disabled="lanuage === 'en'" command="en">
+          English
+        </el-dropdown-item>
+      </el-dropdown-menu>
+    </template>
+  </el-dropdown>
 </template>
 
 <script>
+import { computed } from 'vue'
+import { useStore } from 'vuex'
+import { ElMessage } from 'element-plus'
 export default {
   name: 'LangSelect',
-  props: {},
-  data() {
-    return {}
+  setup() {
+    const store = useStore()
+    return {
+      language: computed(() => store.getters.language),
+      setLanguage: (lang) => store.dispatch('app/setLanguage', lang)
+    }
   },
-  created() {},
-  mounted() {},
-  methods: {}
+  methods: {
+    handleSetLanguage(lang) {
+      this.$i18n.locale = lang
+      this.setLanguage(lang)
+      // this.$store.dispatch('app/setLanguage', lang)
+      ElMessage({
+        message: 'Switch Language Success.',
+        type: 'success'
+      })
+    }
+  }
 }
 </script>
 
