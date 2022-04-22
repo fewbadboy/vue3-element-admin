@@ -10,6 +10,7 @@
       <div class="title-container">
         <h3 class="title">
           {{ $t('login.title') }}
+          <lang-select class="set-language" />
         </h3>
       </div>
       <el-form-item prop="username">
@@ -40,8 +41,12 @@
 </template>
 
 <script>
+import LangSelect from '@/components/LangSelect'
 import { User, Lock } from '@element-plus/icons-vue'
 export default {
+  components: {
+    LangSelect
+  },
   setup() {
     return {
       User,
@@ -83,6 +88,12 @@ $light_gray:#eee;
     .title {
       color: $light_gray;
       margin: 0 auto 20px;
+    }
+
+    .set-language {
+      color: #fff;
+      font-size: 18px;
+      cursor: pointer;
     }
   }
 }

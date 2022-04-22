@@ -1,3 +1,4 @@
+const path = require('path')
 const { networkInterfaces } = require('os')
 const { title } = require('./src/settings')
 
@@ -11,6 +12,10 @@ for (const item of networkInterfaces().WLAN || networkInterfaces()['以太网'])
     host = item.address
     break
   }
+}
+
+function resolve(dir) {
+  return path.join(__dirname, dir)
 }
 
 module.exports = {
@@ -44,5 +49,49 @@ module.exports = {
   // https://github.com/neutrinojs/webpack-chain
   chainWebpack: config => {
     config.plugins.delete('prefetch')
+
+    config.module
+      .rule('svg')
+      .exclude.add(resolve('src/icons'))
+      .end()
+    config.module
+      .rule('icons')
+      .test(/\.svg$/)
+      .include.add(resolve('src/icons'))
+      .end()
+      .use('svg-sprite-loader')
+      .loader('svg-sprite-loader')
+      .options({
+        symbolId: 'icon-[name]'
+      })
+      .end()
+
+    // config
+    //   .when(process.env.NODE_ENV !== 'development',
+    //     config => {
+    //       config
+    //         .optimazation.splitChunks({
+    //           chunks: 'all',
+    //           name: (module, chunks, cacheGroupKey) => `chunk-${cacheGroupKey}`,
+    //           cacheGroups: {
+    //             libs: {
+    //               test: /[\\/]node_modules[\\/]/,
+    //               priority: 10
+
+    //             },
+    //             elementPlus: {
+    //               test: /[\\/]node_modules[\\/]_?element-plus(.*)/,
+    //               priority: 20
+    //             },
+    //             commons: {
+    //               test: resolve('src/components'),
+    //               priority: 5,
+    //               reuseExistingChunk: true
+    //             }
+    //           }
+    //         })
+    //       config.optimazation.runtimeChunk('single')
+    //     }
+    //   )
   }
 }
