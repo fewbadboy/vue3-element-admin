@@ -6,9 +6,7 @@
 
 <script>
 export default {
-  computed: {
-    showLogo: true
-  }
+  // do
 }
 </script>
 

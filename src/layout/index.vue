@@ -51,7 +51,9 @@ export default {
       position: fixed;
       top: 0;
       right: 0;
+      // https://github.com/sass/sass/issues/818
       width: calc(100% - #{$sideBarWidth});
+      transition: all width 0.28s;
     }
   }
 </style>>

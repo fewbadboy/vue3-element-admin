@@ -1,5 +1,5 @@
 <template>
-  <div :class="drawer-container">
+  <div class="drawer-container">
     <el-drawer v-model="setDrawer" :title="$t('settings.title')">
       Settings
     </el-drawer>

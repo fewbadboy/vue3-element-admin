@@ -12,7 +12,7 @@
 export default {
   name: 'HomeView',
   mounted() {
-    console.log(this.$router)
+    console.log(this.$store.getters.token)
   }
 }
 </script>
