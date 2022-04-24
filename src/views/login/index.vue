@@ -32,7 +32,12 @@
         />
       </el-form-item>
       <el-form-item>
-        <el-button type="primary">
+        <el-button
+          :loading="loading"
+          type="primary"
+          style="width: 100%"
+          @click="handleLogin"
+        >
           {{ $t('login.login') }}
         </el-button>
       </el-form-item>
@@ -42,27 +47,68 @@
 
 <script>
 import LangSelect from '@/components/LangSelect'
+import { computed } from 'vue'
+import { useStore } from 'vuex'
 import { User, Lock } from '@element-plus/icons-vue'
+import { validUsername, validPassword } from '@/utils/validate'
 export default {
   components: {
     LangSelect
   },
   setup() {
+    const store = useStore()
     return {
       User,
-      Lock
+      Lock,
+      language: computed(() => store.getters.language)
     }
   },
   data() {
+    const validateUsername = (rule, value, callback) => {
+      if (validUsername(value)) {
+        callback()
+      } else {
+        callback(new Error(`${this.$t('login.usernameError')}`))
+      }
+    }
+    const validatePassword = (rule, value, callback) => {
+      if (validPassword(value)) {
+        callback()
+      } else {
+        callback(new Error(`${this.$t('login.passwordError')}`))
+      }
+    }
     return {
       loginForm: {
         username: '',
         password: ''
       },
       loginRules: {
-        username: [],
-        password: []
-      }
+        username: [{ required: true, trigger: 'blur', validator: validateUsername }],
+        password: [{ required: true, trigger: 'blur', validator: validatePassword }]
+      },
+      loading: false
+    }
+  },
+  watch: {
+    language() {
+      this.$refs.loginForm.clearValidate()
+    }
+  },
+  methods: {
+    handleLogin() {
+      this.$refs.loginForm.validate(isValid => {
+        if (isValid) {
+          this.loading = true
+          this.$store.dispatch('user/login', this.loginForm)
+            .then(_ => {
+              this.$router.push({ path: '/' })
+              this.loading = false
+            })
+        } else {
+          return false
+        }
+      })
     }
   }
 }
@@ -86,11 +132,14 @@ $light_gray:#eee;
     position: relative;
 
     .title {
+      font-size: 26px;
       color: $light_gray;
       margin: 0 auto 20px;
     }
 
     .set-language {
+      position: absolute;
+      right: 0;
       color: #fff;
       font-size: 18px;
       cursor: pointer;

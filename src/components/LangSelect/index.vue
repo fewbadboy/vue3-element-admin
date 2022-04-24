@@ -33,7 +33,7 @@ export default {
       this.setLanguage(lang)
       // this.$store.dispatch('app/setLanguage', lang)
       ElMessage({
-        message: 'Switch Language Success.',
+        message: `${this.$t('login.language')}`,
         type: 'success'
       })
     }
