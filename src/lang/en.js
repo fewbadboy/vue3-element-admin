@@ -7,5 +7,8 @@ export default {
     usernameError: 'Invalid Username',
     passwordError: 'Invalid Password',
     language: 'Switch Language Success'
+  },
+  settings: {
+    title: 'Settings'
   }
 }

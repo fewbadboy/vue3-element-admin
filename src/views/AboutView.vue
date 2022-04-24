@@ -1,6 +1,6 @@
 <template>
   <div class="about">
-    <h1>This is an about page {{ $t('login.title') }}</h1>
+    <div>This is an about page {{ $t('login.title') }}</div>
     <el-time-picker v-model="date" placeholder="Arbitrary time" />
     <el-button>按钮</el-button>
   </div>

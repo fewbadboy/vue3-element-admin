@@ -11,8 +11,10 @@
 
 <script>
 export default {
-  computed: {
-    showLogo: true
+  data() {
+    return {
+      showLogo: true
+    }
   }
 }
 </script>

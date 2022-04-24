@@ -7,5 +7,8 @@ export default {
     usernameError: '无效的账号',
     passwordError: '无效的密码',
     language: '切换语言成功'
+  },
+  settings: {
+    title: '设置'
   }
 }

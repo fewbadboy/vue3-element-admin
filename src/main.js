@@ -20,7 +20,7 @@ createApp(App)
   .use(store)
   .use(router)
   .use(ElementPlus, {
-    size: Cookies.get('size') || 'medium',
+    size: Cookies.get('size') || '',
     locale: getLanguage() === 'zh' ? elementZhLocale : elementEnLocale
   })
   .use(VueI18n)
