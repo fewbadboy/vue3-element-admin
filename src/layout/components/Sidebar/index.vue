@@ -39,8 +39,9 @@
 
 <script>
 import LogoPart from './LogoPart'
-import variables from '@/styles/variables.scss'
-console.log(variables)
+import variables from '@/styles/index.scss'
+console.log(getComputedStyle(document.documentElement).getPropertyValue('--custom-color'))
+document.documentElement.style.setProperty('--custom-color', '#ff0')
 export default {
   components: {
     LogoPart
