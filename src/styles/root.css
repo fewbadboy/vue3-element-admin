@@ -1,3 +1,9 @@
 :root {
   --custom-color: #f00;
 }
+
+/** 
+  * Javascript get/set
+  * console.log(getComputedStyle(document.documentElement).getPropertyValue('--custom-color'))
+  * document.documentElement.style.setProperty('--custom-color', '#ff0')
+*/
