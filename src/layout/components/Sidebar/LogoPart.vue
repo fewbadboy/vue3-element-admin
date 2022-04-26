@@ -3,7 +3,7 @@
     <router-link class="sidebar-logo-link" to="/">
       <img :src="logo" class="sidebar-logo">
       <transition name="sidebar-logo">
-        <div v-if="collapse" class="sidebar-title">
+        <div v-if="!collapse" class="sidebar-title">
           {{ title }}
         </div>
       </transition>
@@ -30,6 +30,8 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import "@/styles/variables.module.scss";
+
 .sidebar-logo-enter-active {
   transition: opacity 1.5s;
 }
@@ -41,7 +43,7 @@ export default {
 .sidebar-logo-container {
   height: 50px;
   line-height: 50px;
-  background: #2b2f3a;
+  background-color: $menuBgColor;
 
   & .sidebar-logo-link {
     width: 100%;

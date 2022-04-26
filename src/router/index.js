@@ -17,11 +17,28 @@ const routes = [
     path: '/home',
     name: 'home',
     component: Layout,
-    redirect: '/home/index',
+    redirect: '/home/view',
     children: [
       {
-        path: 'index',
-        component: () => import('@/views/HomeView.vue')
+        path: 'view',
+        component: () => import('@/views/HomeView.vue'),
+        redirect: '/home/view/wrap',
+        children: [
+          {
+            path: 'wrap',
+            component: () => import('@/views/HomeWrap.vue'),
+            children: [
+              {
+                path: 'main',
+                component: () => import('@/views/HomeMain.vue')
+              }
+            ]
+          },
+          {
+            path: '1-4-2',
+            component: () => import('@/views/HomeWrap.vue')
+          }
+        ]
       }
     ]
   },

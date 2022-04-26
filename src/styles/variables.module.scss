@@ -1,9 +1,13 @@
-
+// https://cli.vuejs.org/guide/css.html#css-modules
 // sidebar
 $menuText: #bfcbd9;
 $menuActiveText: #409EFF;
 
-$menuBgColor: #1f2d3d;
+$menuBgColor: #304156;
+$menuHover:#263445;
+
+$subMenuBg:#1f2d3d;
+$subMenuHover: #001528;
 
 $sideBarWidth: 210px;
 
@@ -13,5 +17,8 @@ $sideBarWidth: 210px;
   menuText: $menuText;
   menuActiveText: $menuActiveText;
   menuBgColor: $menuBgColor;
+  menuHover: $menuHover;
   sideBarWidth: $sideBarWidth;
+  subMenuBg: $subMenuBg;
+  subMenuHover: $subMenuHover;
 }

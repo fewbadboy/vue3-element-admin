@@ -2,6 +2,9 @@ import Cookies from 'js-cookie'
 import { getLanguage } from '@/lang'
 
 const state = {
+  sidebar: {
+    opened: !!Cookies.get('sidebarStatus')
+  },
   language: getLanguage(),
   size: Cookies.get('size') || 'medium'
 }

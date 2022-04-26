@@ -10,20 +10,26 @@
         :text-color="variables.menuText"
         :active-text-color="variables.menuActiveText"
         :unique-opened="false"
+        :router="true"
       >
-        <el-sub-menu index="1">
+        <el-sub-menu index="/home">
           <template #title>
             <svg-icon icon-class="dashboard" />
-            <span>Navigator One</span>
+            <span>Home</span>
           </template>
-          <el-sub-menu index="1-4">
+          <el-sub-menu index="/home/view">
             <template #title>
-              item four
+              View
             </template>
-            <el-menu-item index="1-4-1">
-              item one
-            </el-menu-item>
-            <el-menu-item index="1-4-2">
+            <el-sub-menu index="/home/view/wrap">
+              <template #title>
+                Wrap
+              </template>
+              <el-menu-item index="/home/view/wrap/main">
+                Main
+              </el-menu-item>
+            </el-sub-menu>
+            <el-menu-item index="/home/view/1-4-2">
               item two
             </el-menu-item>
           </el-sub-menu>
@@ -40,6 +46,7 @@
 <script>
 import LogoPart from './LogoPart'
 import variables from '@/styles/variables.module.scss'
+import { mapGetters } from 'vuex'
 export default {
   components: {
     LogoPart
@@ -51,8 +58,11 @@ export default {
     }
   },
   computed: {
+    ...mapGetters([
+      'sidebar'
+    ]),
     isCollapse() {
-      return false
+      return this.sidebar.opened
     },
     variables() {
       return variables

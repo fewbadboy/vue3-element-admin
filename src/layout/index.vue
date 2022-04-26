@@ -1,5 +1,5 @@
 <template>
-  <div class="app-wrapper">
+  <div class="app-wrapper" :class="hideTitle">
     <sidebar class="sidebar-container" />
     <div class="main-container" :class="{hasTagView: needTagsView}">
       <div :class="{'fixed-header': fixedHeader}">
@@ -35,7 +35,12 @@ export default {
       showSettings: state => state.settings.showSettings,
       needTagsView: state => state.settings.tagsView,
       fixedHeader: state => state.settings.fixedHeader
-    })
+    }),
+    hideTitle() {
+      return {
+        'hide-title': this.sidebar.opened
+      }
+    }
   }
 }
 </script>
