@@ -4,12 +4,13 @@ import Layout from '@/layout'
 
 /**
  * path: ''                            each root node must start with '/'
- * name: 'route-name'
+ * name: 'route-name'                  the name is used by tagsView title
  * redirect: 'redirect-path'
  * meta: {
  *   roles: ['admin', 'user']          control the page roles, you can set multiple roles
  *   icon: 'svg-name'                  https://element-plus.org/en-US/component/icon.html#icon-collection get SVG content
  *   affix: false                      if set true, the tag will affix in the tags-view
+ *   noCache: false                    if set true, the page will no be cached in <keep-alive>
  * }
  * children: [
  *  {

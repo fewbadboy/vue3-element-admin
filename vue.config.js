@@ -29,7 +29,7 @@ module.exports = {
   assetsDir: 'static',
   lintOnSave: process.env.NODE_ENV === 'development',
   productionSourceMap: false,
-  // https://github.com/vuejs/vue-cli 4.5.4 used webpack 5
+  // https://github.com/vuejs/vue-cli v 5.0.4  used webpack 5
   devServer: {
     port,
     host,

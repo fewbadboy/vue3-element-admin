@@ -2,7 +2,7 @@
   <el-scrollbar class="app-main">
     <router-view v-slot="{ Component, route }">
       <transition name="fade-transform" mode="out-in">
-        <keep-alive>
+        <keep-alive :max="10" :include="cachedViews">
           <component :is="Component" :key="route.path" />
         </keep-alive>
       </transition>
@@ -11,8 +11,12 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
 export default {
-
+  name: 'AppMain',
+  computed: {
+    ...mapGetters(['cachedViews'])
+  }
 }
 </script>
 
