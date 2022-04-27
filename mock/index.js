@@ -4,6 +4,7 @@ module.exports = (middlewares, devServer) => {
   }
 
   devServer.app.post('/user/login', (request, response) => {
+    console.log(request)
     response.json({
       code: 200,
       data: {
@@ -12,7 +13,7 @@ module.exports = (middlewares, devServer) => {
     })
   })
 
-  devServer.app.post('/user/Info', (request, response) => {
+  devServer.app.get('/user/info', (request, response) => {
     response.json({
       code: 200,
       data: {

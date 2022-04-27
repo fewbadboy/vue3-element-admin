@@ -3,6 +3,12 @@ import { createRouter, createWebHistory } from 'vue-router'
 import Layout from '@/layout'
 
 /**
+ * Router Modules
+ */
+import chartRouter from './modules/charts'
+import componentsRouter from './modules/components'
+import tableRouter from './modules/table'
+/**
  * path: ''                            each root node must start with '/'
  * name: 'route-name'                  the name is used by tagsView title
  * redirect: 'redirect-path'
@@ -79,8 +85,10 @@ export const constantRoutes = [
   }
 ]
 
-export const asyncRouters = [
-
+export const asyncRoutes = [
+  ...chartRouter,
+  ...componentsRouter,
+  ...tableRouter,
   { path: '/:pathMatch(.*)*', name: 'NotFound', component: () => import('@/views/not-found') }
 ]
 
@@ -91,7 +99,7 @@ const router = createRouter({
       top: 0
     }
   },
-  constantRoutes
+  routes: constantRoutes
 })
 
 export default router

@@ -17,8 +17,8 @@ import './icons'
 import './permission'
 
 createApp(App)
-  .use(store)
   .use(router)
+  .use(store)
   .use(ElementPlus, {
     size: Cookies.get('size') || '',
     locale: getLanguage() === 'zh' ? elementZhLocale : elementEnLocale

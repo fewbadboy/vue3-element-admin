@@ -54,9 +54,9 @@ const actions = {
 
         const { name, roles, avatar } = data
         commit('SET_NAME', name)
-        commit('SET_ROLE', roles)
+        commit('SET_ROLES', roles)
         commit('SET_AVATAR', avatar)
-        resolve()
+        resolve(data)
       }).catch(error => {
         reject(error)
       })
