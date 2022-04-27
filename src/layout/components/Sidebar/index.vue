@@ -34,22 +34,25 @@
             </el-menu-item>
           </el-sub-menu>
         </el-sub-menu>
-        <el-menu-item index="2">
+        <el-menu-item index="http://www.baidu.com">
           <svg-icon icon-class="dashboard" />
           <span>Navigator Two</span>
         </el-menu-item>
       </el-menu>
     </el-scrollbar>
+    <menu-item :icon="'chart'" :title="'chart title'" />
   </div>
 </template>
 
 <script>
 import LogoPart from './LogoPart'
+import MenuItem from './MenuItem'
 import variables from '@/styles/variables.module.scss'
 import { mapGetters } from 'vuex'
 export default {
   components: {
-    LogoPart
+    LogoPart,
+    MenuItem
   },
   data() {
     return {
