@@ -44,25 +44,33 @@
       }
     }
 
-    .is-active>.el-sub-menu__title {
+    .is-active.el-menu-item {
       color: $menuActiveText !important;
     }
 
-    .el-menu-item {
+    .el-sub-menu__title {
       &:hover {
+        color: $menuActiveText !important;
         background-color: $menuHover !important;
       }
     }
 
-    & .el-menu .el-submenu>.el-submenu__title,
-    & .el-sub-menu .el-menu-item {
-      width: $sideBarWidth !important;
-      background-color: $subMenuBg !important;
-
+    .el-menu-item {
       &:hover {
-        background-color: $subMenuHover !important;
+        color: $menuActiveText !important;
+        background-color: $menuHover !important;
       }
     }
+
+    // & .el-menu .el-submenu>.el-submenu__title,
+    // & .el-submenu .el-menu-item {
+    //   width: $sideBarWidth !important;
+    //   background-color: $subMenuBg !important;
+
+    //   &:hover {
+    //     background-color: $subMenuHover !important;
+    //   }
+    // }
   }
   .hide-title {
     .sidebar-container {

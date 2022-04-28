@@ -12,52 +12,27 @@
         :unique-opened="false"
         :router="true"
       >
-        <el-sub-menu index="/home">
-          <template #title>
-            <svg-icon icon-class="dashboard" />
-            <span>Home</span>
-          </template>
-          <el-sub-menu index="/home/view">
-            <template #title>
-              View
-            </template>
-            <el-sub-menu index="/home/view/wrap">
-              <template #title>
-                Wrap
-              </template>
-              <el-menu-item index="/home/view/wrap/main">
-                Main
-              </el-menu-item>
-            </el-sub-menu>
-            <el-menu-item index="/home/view/1-4-2">
-              item two
-            </el-menu-item>
-          </el-sub-menu>
-        </el-sub-menu>
-        <el-menu-item index="http://www.baidu.com">
-          <svg-icon icon-class="dashboard" />
-          <span>Navigator Two</span>
-        </el-menu-item>
+        <sidebar-item />
       </el-menu>
     </el-scrollbar>
-    <menu-item :icon="'chart'" :title="'chart title'" />
   </div>
 </template>
 
 <script>
 import LogoPart from './LogoPart'
-import MenuItem from './MenuItem'
+import SidebarItem from './SidebarItem'
 import variables from '@/styles/variables.module.scss'
 import { mapGetters } from 'vuex'
 export default {
   components: {
     LogoPart,
-    MenuItem
+    SidebarItem
   },
   data() {
     return {
       showLogo: true,
-      activeMenu: '2'
+      activeMenu: '2',
+      hidden: false
     }
   },
   computed: {

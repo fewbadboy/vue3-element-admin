@@ -1,5 +1,6 @@
 <script>
-// render 函数通常只需要对全局注册的组件使用 resolveComponent, 局部注册的可跳过
+// render 函数通常只需要对全局注册的组件使用 resolveComponent
+// 局部注册的组件可直接使用
 import { h, resolveComponent } from 'vue'
 export default {
   name: 'MenuItem',
