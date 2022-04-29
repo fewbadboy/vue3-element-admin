@@ -9,10 +9,14 @@
         :background-color="variables.menuBgColor"
         :text-color="variables.menuText"
         :active-text-color="variables.menuActiveText"
-        :unique-opened="false"
         :router="true"
       >
-        <sidebar-item />
+        <sidebar-item
+          v-for="route in permission_routes"
+          :key="route.path"
+          :item="route"
+          :base-path="route.path"
+        />
       </el-menu>
     </el-scrollbar>
   </div>
@@ -37,6 +41,7 @@ export default {
   },
   computed: {
     ...mapGetters([
+      'permission_routes',
       'sidebar'
     ]),
     isCollapse() {
