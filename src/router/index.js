@@ -41,14 +41,34 @@ export const constantRoutes = [
     component: () => import('@/views/login')
   },
   {
+    path: '/401',
+    hidden: true,
+    component: () => import('@/views/error-page/401')
+  },
+  {
+    path: '/404',
+    hidden: true,
+    component: () => import('@/views/error-page/401')
+  },
+  {
     path: '/',
     component: Layout,
-    hidden: true,
-    redirect: '/home'
+    redirect: '/dashboard',
+    children: [
+      {
+        path: 'dashboard',
+        name: 'Dashboard',
+        meta: {
+          title: 'Dashboard',
+          icon: 'dashboard'
+        },
+        component: () => import('@/views/dashboard')
+      }
+    ]
   },
   {
     path: '/home',
-    name: 'home',
+    name: 'Home',
     component: Layout,
     // redirect: '/home/view',
     meta: {
@@ -92,7 +112,7 @@ export const constantRoutes = [
   },
   {
     path: '/about',
-    name: 'about',
+    name: 'About',
     component: Layout,
     redirect: '/about/index',
     meta: {
@@ -115,6 +135,29 @@ export const asyncRoutes = [
   ...componentsRouter,
   ...tableRouter,
   {
+    path: '/error',
+    name: 'ErrorPages',
+    component: Layout,
+    meta: {
+      title: 'Error Pages',
+      icon: '404'
+    },
+    children: [
+      {
+        path: '401',
+        component: () => import('@/views/error-page/401'),
+        name: 'Page401',
+        meta: { title: '401' }
+      },
+      {
+        path: '404',
+        component: () => import('@/views/error-page/404'),
+        name: 'Page404',
+        meta: { title: '404' }
+      }
+    ]
+  },
+  {
     path: '/google-link',
     component: Layout,
     children: [
@@ -124,7 +167,7 @@ export const asyncRoutes = [
       }
     ]
   },
-  { path: '/:pathMatch(.*)*', name: 'NotFound', hidden: true, component: () => import('@/views/not-found') }
+  { path: '/:pathMatch(.*)*', hidden: true, redirect: '/404' }
 ]
 
 const router = createRouter({

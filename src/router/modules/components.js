@@ -3,7 +3,7 @@ import Layout from '@/layout'
 const componentsRouter = [
   {
     path: '/components',
-    name: 'components',
+    name: 'Components',
     component: Layout,
     meta: {
       icon: 'component',
@@ -12,7 +12,7 @@ const componentsRouter = [
     children: [
       {
         path: 'index',
-        name: 'component',
+        name: 'Component',
         meta: {
           title: 'Component'
         },

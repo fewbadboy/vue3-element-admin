@@ -3,7 +3,7 @@ import Layout from '@/layout'
 const tableRouter = [
   {
     path: '/tables',
-    name: 'tables',
+    name: 'Tables',
     component: Layout,
     meta: {
       icon: 'table',

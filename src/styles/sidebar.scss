@@ -6,12 +6,13 @@
     transition: all 0.28s;
   }
   .sidebar-container {
-    width: $sideBarWidth;
-    height: 100%;
     position: fixed;
     top: 0;
     left: 0;
     bottom: 0;
+    width: $sideBarWidth;
+    height: 100%;
+    background-color: $menuBgColor;
     z-index: 1001;
     transition: all 0.28s;
 
@@ -61,16 +62,6 @@
         background-color: $menuHover !important;
       }
     }
-
-    // & .el-menu .el-submenu>.el-submenu__title,
-    // & .el-submenu .el-menu-item {
-    //   width: $sideBarWidth !important;
-    //   background-color: $subMenuBg !important;
-
-    //   &:hover {
-    //     background-color: $subMenuHover !important;
-    //   }
-    // }
   }
   .hide-title {
     .sidebar-container {

@@ -3,7 +3,7 @@ import Layout from '@/layout'
 const chartRouter = [
   {
     path: '/charts',
-    name: 'charts',
+    name: 'Charts',
     component: Layout,
     meta: {
       icon: 'chart',
@@ -12,7 +12,7 @@ const chartRouter = [
     children: [
       {
         path: 'index',
-        name: 'chart',
+        name: 'Chart',
         meta: {
           title: 'Chart'
         },

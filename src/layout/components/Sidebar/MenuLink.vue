@@ -42,5 +42,8 @@ export default {
 <style lang="scss" scoped>
 .sidebar-link {
   text-decoration: none;
+  &:hover, &:active {
+    text-decoration: none;
+  }
 }
 </style>
