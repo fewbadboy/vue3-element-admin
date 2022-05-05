@@ -1,37 +1,49 @@
 <template>
-  <el-sub-menu index="/home">
-    <template #title>
-      <svg-icon icon-class="dashboard" />
-      <span>Home</span>
-    </template>
-    <el-sub-menu index="/home/view">
-      <template #title>
-        View
-      </template>
-      <el-sub-menu index="/home/view/wrap">
-        <template #title>
-          Wrap
-        </template>
-        <el-menu-item index="/home/view/wrap/main">
-          Main
+  <div v-if="!item.hidden">
+    <template
+      v-if="hasOneShowingChild(item.children, item) && !onlyOneChild.children"
+    >
+      <menu-link :to="resolvePath(onlyOneChild.path)">
+        <el-menu-item :index="resolvePath(onlyOneChild.path)">
+          <menu-item
+            :icon="onlyOneChild.meta&&onlyOneChild.meta.icon||(item.meta&&item.meta.icon)"
+            :title="onlyOneChild.meta&&onlyOneChild.meta.title"
+          />
         </el-menu-item>
-      </el-sub-menu>
-      <el-menu-item index="/home/view/1-4-2">
-        item two
-      </el-menu-item>
+      </menu-link>
+    </template>
+    <el-sub-menu
+      v-else
+      :index="resolvePath(item.path)"
+    >
+      <template #title>
+        <menu-item
+          v-if="item.meta"
+          :icon="item.meta.icon"
+          :title="item.meta.title"
+        />
+      </template>
+      <sidebar-item
+        v-for="child in item.children"
+        :key="child.path"
+        :item="child"
+        :base-path="resolvePath(child.path)"
+      />
     </el-sub-menu>
-  </el-sub-menu>
-  <div v-if="hidden">
-    <el-menu-item index="/Two">
-      <svg-icon icon-class="dashboard" />
-      <span>Navigator Two</span>
-    </el-menu-item>
   </div>
 </template>
 
 <script>
+import path from 'path'
+import { isExternal } from '@/utils/validate'
+import MenuLink from './MenuLink'
+import MenuItem from './MenuItem.vue'
 export default {
   name: 'SidebarItem',
+  components: {
+    MenuLink,
+    MenuItem
+  },
   props: {
     item: {
       type: Object,
@@ -40,6 +52,41 @@ export default {
     basePath: {
       type: String,
       default: ''
+    }
+  },
+  data() {
+    this.onlyOneChild = {}
+    return {}
+  },
+  methods: {
+    hasOneShowingChild(children = [], parent) {
+      const showingChildren = children.filter(item => {
+        if (item.hidden) {
+          return false
+        } else {
+          // if only has one showing child
+          this.onlyOneChild = item
+          return true
+        }
+      })
+      if (showingChildren.length === 1) {
+        return true
+      }
+      if (showingChildren.length === 0) {
+        this.onlyOneChild = { ...parent, path: '' }
+        return true
+      }
+      console.log(this.onlyOneChild)
+      return false
+    },
+    resolvePath(routePath) {
+      if (isExternal(routePath)) {
+        return routePath
+      }
+      if (isExternal(this.basePath)) {
+        return this.basePath
+      }
+      return path.resolve(this.basePath, routePath)
     }
   }
 }

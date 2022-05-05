@@ -16,6 +16,7 @@ import tableRouter from './modules/table'
  * meta: {
  *   roles: ['admin', 'user']          control the page roles, you can set multiple roles
  *   icon: 'svg-name'                  https://element-plus.org/en-US/component/icon.html#icon-collection get SVG content
+ *   title: 'title'                    the name show in sidebar
  *   affix: false                      if set true, the tag will affix in the tags-view
  *   noCache: false                    if set true, the page will no be cached in <keep-alive>
  * }
@@ -36,11 +37,13 @@ export const constantRoutes = [
   {
     path: '/login',
     name: 'Login',
+    hidden: true,
     component: () => import('@/views/login')
   },
   {
     path: '/',
     component: Layout,
+    hidden: true,
     redirect: '/home'
   },
   {
@@ -48,24 +51,39 @@ export const constantRoutes = [
     name: 'home',
     component: Layout,
     // redirect: '/home/view',
+    meta: {
+      title: 'Home'
+    },
     children: [
       {
         path: 'view',
+        meta: {
+          title: 'View'
+        },
         component: () => import('@/views/HomeView.vue'),
         // redirect: '/home/view/wrap',
         children: [
           {
             path: 'wrap',
+            meta: {
+              title: 'Wrap'
+            },
             component: () => import('@/views/HomeWrap.vue'),
             children: [
               {
                 path: 'main',
+                meta: {
+                  title: 'Main'
+                },
                 component: () => import('@/views/HomeMain.vue')
               }
             ]
           },
           {
             path: '1-4-2',
+            meta: {
+              title: '1-4-2'
+            },
             component: () => import('@/views/HomeWrap.vue')
           }
         ]
@@ -77,9 +95,15 @@ export const constantRoutes = [
     name: 'about',
     component: Layout,
     redirect: '/about/index',
+    meta: {
+      title: 'About'
+    },
     children: [
       {
         path: 'index',
+        meta: {
+          title: 'About'
+        },
         component: () => import('@/views/AboutView.vue')
       }
     ]
@@ -90,7 +114,7 @@ export const asyncRoutes = [
   ...chartRouter,
   ...componentsRouter,
   ...tableRouter,
-  { path: '/:pathMatch(.*)*', name: 'NotFound', component: () => import('@/views/not-found') }
+  { path: '/:pathMatch(.*)*', name: 'NotFound', hidden: true, component: () => import('@/views/not-found') }
 ]
 
 const router = createRouter({

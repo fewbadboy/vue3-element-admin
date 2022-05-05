@@ -44,7 +44,12 @@ module.exports = {
   },
   // https://github.com/survivejs/webpack-merge
   configureWebpack: {
-    name
+    name,
+    resolve: {
+      fallback: {
+        path: require.resolve('path-browserify')
+      }
+    }
   },
   // https://github.com/neutrinojs/webpack-chain
   chainWebpack(config) {

@@ -21,7 +21,7 @@ export default {
     }
 
     if (this.title) {
-      vnodes.push(h('span', { class: ['a', 'b'] }, this.title))
+      vnodes.push(h('span', { class: ['sidebar-title'] }, this.title))
     }
     return vnodes
   }
