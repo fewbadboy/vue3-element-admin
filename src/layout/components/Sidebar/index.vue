@@ -9,7 +9,6 @@
         :background-color="variables.menuBgColor"
         :text-color="variables.menuText"
         :active-text-color="variables.menuActiveText"
-        :router="true"
       >
         <sidebar-item
           v-for="route in permission_routes"
@@ -50,9 +49,6 @@ export default {
     variables() {
       return variables
     }
-  },
-  mounted() {
-    console.log(this.permission_routes)
   }
 }
 </script>

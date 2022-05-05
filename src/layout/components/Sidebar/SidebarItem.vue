@@ -76,7 +76,6 @@ export default {
         this.onlyOneChild = { ...parent, path: '' }
         return true
       }
-      console.log(this.onlyOneChild)
       return false
     },
     resolvePath(routePath) {

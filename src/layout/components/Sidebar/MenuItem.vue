@@ -27,3 +27,9 @@ export default {
   }
 }
 </script>
+
+<style lang="scss" scoped>
+.sidebar-title {
+  padding-left: 6px;
+}
+</style>

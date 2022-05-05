@@ -114,6 +114,16 @@ export const asyncRoutes = [
   ...chartRouter,
   ...componentsRouter,
   ...tableRouter,
+  {
+    path: '/google-link',
+    component: Layout,
+    children: [
+      {
+        path: 'https://google.com',
+        meta: { title: 'Google Link', icon: 'link' }
+      }
+    ]
+  },
   { path: '/:pathMatch(.*)*', name: 'NotFound', hidden: true, component: () => import('@/views/not-found') }
 ]
 

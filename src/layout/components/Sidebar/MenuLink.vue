@@ -1,5 +1,5 @@
 <template>
-  <component :is="type" v-bind="linkProps(to)">
+  <component :is="type" v-bind="linkProps(to)" class="sidebar-link">
     <slot />
   </component>
 </template>
@@ -39,6 +39,8 @@ export default {
 }
 </script>
 
-<style>
-
+<style lang="scss" scoped>
+.sidebar-link {
+  text-decoration: none;
+}
 </style>
