@@ -9,6 +9,7 @@
         :background-color="variables.menuBgColor"
         :text-color="variables.menuText"
         :active-text-color="variables.menuActiveText"
+        :collapse-transition="false"
       >
         <sidebar-item
           v-for="route in permission_routes"
@@ -44,7 +45,7 @@ export default {
       'sidebar'
     ]),
     isCollapse() {
-      return this.sidebar.opened
+      return !this.sidebar.opened
     },
     variables() {
       return variables

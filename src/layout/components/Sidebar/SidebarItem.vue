@@ -8,6 +8,7 @@
           <menu-item
             :icon="onlyOneChild.meta&&onlyOneChild.meta.icon||(item.meta&&item.meta.icon)"
             :title="onlyOneChild.meta&&onlyOneChild.meta.title"
+            :is-only-top="true"
           />
         </el-menu-item>
       </menu-link>
@@ -21,6 +22,7 @@
           v-if="item.meta"
           :icon="item.meta.icon"
           :title="item.meta.title"
+          :is-only-top="false"
         />
       </template>
       <sidebar-item

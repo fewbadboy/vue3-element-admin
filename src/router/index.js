@@ -48,7 +48,7 @@ export const constantRoutes = [
   {
     path: '/404',
     hidden: true,
-    component: () => import('@/views/error-page/401')
+    component: () => import('@/views/error-page/404')
   },
   {
     path: '/',
@@ -72,7 +72,8 @@ export const constantRoutes = [
     component: Layout,
     // redirect: '/home/view',
     meta: {
-      title: 'Home'
+      title: 'Home',
+      icon: 'component'
     },
     children: [
       {
@@ -116,7 +117,8 @@ export const constantRoutes = [
     component: Layout,
     redirect: '/about/index',
     meta: {
-      title: 'About'
+      title: 'About',
+      icon: 'component'
     },
     children: [
       {

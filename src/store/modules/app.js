@@ -10,6 +10,18 @@ const state = {
 }
 
 const mutations = {
+  TOGGLE_SIDEBAR: (state) => {
+    state.sidebar.opened = !state.sidebar.opened
+    if (state.sidebar.opened) {
+      Cookies.set('sidebarStatus', 1)
+    } else {
+      Cookies.set('sidebarStatus', 0)
+    }
+  },
+  CLOSE_SIDEBAR: (state) => {
+    state.sidebar.opened = false
+    Cookies.set('sidebarStatus', 0)
+  },
   SET_LANGUAGE: (state, language) => {
     state.language = language
     Cookies.set('language', language)
@@ -21,6 +33,12 @@ const mutations = {
 }
 
 const actions = {
+  toggleSidebar({ commit }) {
+    commit('TOGGLE_SIDEBAR')
+  },
+  closeSidebar({ commit }) {
+    commit('CLOSE_SIDEBAR')
+  },
   setLanguage({ commit }, language) {
     commit('SET_LANGUAGE', language)
   },

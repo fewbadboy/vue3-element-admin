@@ -38,7 +38,7 @@ export default {
     }),
     hideTitle() {
       return {
-        'hide-title': this.sidebar.opened
+        'hide-title': !this.sidebar.opened
       }
     }
   }
@@ -56,6 +56,7 @@ export default {
       position: fixed;
       top: 0;
       right: 0;
+      z-index: 10;
       // https://github.com/sass/sass/issues/818
       width: calc(100% - #{$sideBarWidth});
       transition: all width 0.28s;

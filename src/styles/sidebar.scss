@@ -67,8 +67,48 @@
     .sidebar-container {
       width: 54px;
     }
+    .main-container {
+      margin-left: 54px;
+    }
     .fixed-header {
       width: calc(100% - 54px);
     }
+    .el-sub-menu {
+      overflow: hidden;
+
+      &>.el-sub-menu__title {
+        padding: 0;
+
+        .el-sub-menu__icon-arrow {
+          display: none;
+        }
+      }
+    }
+    .el-menu--collapse {
+      width: 54px;
+
+      .el-sub-menu {
+        &>.el-sub-menu__title {
+          &>.sidebar-title {
+            height: 0;
+            width: 0;
+            overflow: hidden;
+            visibility: hidden;
+            display: inline-block;
+          }
+        }
+      }
+      .el-menu-item {
+        .svg-icon {
+          margin-right: 16px;
+        }
+      }
+    }
+  }
+}
+
+.el-menu--collapse {
+  .el-menu-item {
+    min-width: $sideBarWidth !important;
   }
 }

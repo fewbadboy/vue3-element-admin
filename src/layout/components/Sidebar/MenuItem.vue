@@ -12,12 +12,26 @@ export default {
     title: {
       type: String,
       default: ''
+    },
+    isOnlyTop: {
+      type: Boolean,
+      default: false
     }
   },
   render() {
     const vnodes = []
     if (this.icon) {
-      vnodes.push(h(resolveComponent('svg-icon'), { 'icon-class': this.icon }))
+      if (this.isOnlyTop) {
+        vnodes.push(h(resolveComponent('el-tooltip'), {
+          content: this.title,
+          placement: 'right',
+          offset: 26
+        }, [
+          h(resolveComponent('svg-icon'), { 'icon-class': this.icon })
+        ]))
+      } else {
+        vnodes.push(h(resolveComponent('svg-icon'), { 'icon-class': this.icon }))
+      }
     }
 
     if (this.title) {
