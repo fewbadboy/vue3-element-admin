@@ -15,8 +15,8 @@ import tableRouter from './modules/table'
  * hidden: false                       if set true, item will not show in the sidebar
  * meta: {
  *   roles: ['admin', 'user']          control the page roles, you can set multiple roles
+ *   title: 'title'                    the name show in sidebar and breadcrumb
  *   icon: 'svg-name'                  https://element-plus.org/en-US/component/icon.html#icon-collection get SVG content
- *   title: 'title'                    the name show in sidebar
  *   affix: false                      if set true, the tag will affix in the tags-view
  *   noCache: false                    if set true, the page will no be cached in <keep-alive>
  * }
@@ -59,7 +59,7 @@ export const constantRoutes = [
         path: 'dashboard',
         name: 'Dashboard',
         meta: {
-          title: 'Dashboard',
+          title: 'dashboard',
           icon: 'dashboard'
         },
         component: () => import('@/views/dashboard')
@@ -70,40 +70,41 @@ export const constantRoutes = [
     path: '/home',
     name: 'Home',
     component: Layout,
-    // redirect: '/home/view',
+    redirect: '/home/view',
     meta: {
-      title: 'Home',
+      title: 'home',
       icon: 'component'
     },
     children: [
       {
         path: 'view',
         meta: {
-          title: 'View'
+          title: 'view'
         },
         component: () => import('@/views/HomeView.vue'),
-        // redirect: '/home/view/wrap',
+        redirect: '/home/view/wrap',
         children: [
           {
             path: 'wrap',
             meta: {
-              title: 'Wrap'
+              title: 'wrap'
             },
             component: () => import('@/views/HomeWrap.vue'),
+            redirect: '/home/view/wrap/main',
             children: [
               {
                 path: 'main',
                 meta: {
-                  title: 'Main'
+                  title: 'main'
                 },
                 component: () => import('@/views/HomeMain.vue')
               }
             ]
           },
           {
-            path: '1-4-2',
+            path: 'menu2',
             meta: {
-              title: '1-4-2'
+              title: 'menu2'
             },
             component: () => import('@/views/HomeWrap.vue')
           }
@@ -117,14 +118,14 @@ export const constantRoutes = [
     component: Layout,
     redirect: '/about/index',
     meta: {
-      title: 'About',
+      title: 'about',
       icon: 'component'
     },
     children: [
       {
         path: 'index',
         meta: {
-          title: 'About'
+          title: 'about'
         },
         component: () => import('@/views/AboutView.vue')
       }
@@ -140,8 +141,9 @@ export const asyncRoutes = [
     path: '/error',
     name: 'ErrorPages',
     component: Layout,
+    redirect: '/error/401',
     meta: {
-      title: 'Error Pages',
+      title: 'errorPages',
       icon: '404'
     },
     children: [
@@ -149,13 +151,13 @@ export const asyncRoutes = [
         path: '401',
         component: () => import('@/views/error-page/401'),
         name: 'Page401',
-        meta: { title: '401' }
+        meta: { title: 'page401' }
       },
       {
         path: '404',
         component: () => import('@/views/error-page/404'),
         name: 'Page404',
-        meta: { title: '404' }
+        meta: { title: 'page404' }
       }
     ]
   },
@@ -165,7 +167,7 @@ export const asyncRoutes = [
     children: [
       {
         path: 'https://google.com',
-        meta: { title: 'Google Link', icon: 'link' }
+        meta: { title: 'externalLink', icon: 'link' }
       }
     ]
   },

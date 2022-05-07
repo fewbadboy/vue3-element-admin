@@ -6,15 +6,15 @@ const componentsRouter = [
     name: 'Components',
     component: Layout,
     meta: {
-      icon: 'component',
-      title: 'Components'
+      title: 'components',
+      icon: 'component'
     },
     children: [
       {
         path: 'index',
         name: 'Component',
         meta: {
-          title: 'Component'
+          title: 'component'
         },
         component: () => import('@/views/components/HelloComponent.vue')
       }

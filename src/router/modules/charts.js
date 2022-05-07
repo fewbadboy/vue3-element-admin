@@ -6,15 +6,15 @@ const chartRouter = [
     name: 'Charts',
     component: Layout,
     meta: {
-      icon: 'chart',
-      title: 'Charts'
+      title: 'charts',
+      icon: 'chart'
     },
     children: [
       {
         path: 'index',
         name: 'Chart',
         meta: {
-          title: 'Chart'
+          title: 'chart'
         },
         component: () => import('@/views/components/HelloChart.vue')
       }

@@ -6,15 +6,15 @@ const tableRouter = [
     name: 'Tables',
     component: Layout,
     meta: {
-      icon: 'table',
-      title: 'Tables'
+      title: 'tables',
+      icon: 'table'
     },
     children: [
       {
         path: 'index',
         name: 'Table',
         meta: {
-          title: 'Table'
+          title: 'table'
         },
         component: () => import('@/views/components/HelloTable.vue')
       }
