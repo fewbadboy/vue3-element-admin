@@ -46,9 +46,10 @@
 </template>
 
 <script>
-import LangSelect from '@/components/LangSelect'
 import { computed } from 'vue'
 import { useStore } from 'vuex'
+import store from '@/store'
+import LangSelect from '@/components/LangSelect'
 import { User, Lock } from '@element-plus/icons-vue'
 import { validUsername, validPassword } from '@/utils/validate'
 export default {
@@ -100,7 +101,7 @@ export default {
       this.$refs.loginForm.validate(isValid => {
         if (isValid) {
           this.loading = true
-          this.$store.dispatch('user/login', this.loginForm)
+          store.dispatch('user/login', this.loginForm)
             .then(_ => {
               this.$router.push({ path: '/' })
               this.loading = false

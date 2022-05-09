@@ -21,6 +21,14 @@ export default {
     page404: '404',
     externalLink: 'External Link'
   },
+  navbar: {
+    dashboard: 'Dashboard',
+    github: 'Github',
+    logOut: 'Log Out',
+    profile: 'Profile',
+    theme: 'Theme',
+    size: 'Global Size'
+  },
   settings: {
     title: 'Settings'
   }

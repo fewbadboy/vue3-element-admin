@@ -9,11 +9,11 @@
 </template>
 
 <script>
-
+import store from '@/store'
 export default {
   name: 'HomeView',
   mounted() {
-    console.log(this.$store.getters.token)
+    console.log(store.getters.token)
   }
 }
 </script>

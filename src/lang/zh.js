@@ -21,6 +21,14 @@ export default {
     page404: '404',
     externalLink: '外链'
   },
+  navbar: {
+    dashboard: '首页',
+    github: '项目地址',
+    logOut: '退出登录',
+    profile: '个人中心',
+    theme: '换肤',
+    size: '布局大小'
+  },
   settings: {
     title: '设置'
   }

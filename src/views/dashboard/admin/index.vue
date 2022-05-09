@@ -1,6 +1,7 @@
 <template>
   <div class="dashboard-user-container">
     <h1>{{ name }}</h1>
+    <el-date-picker />
     <el-image :src="emptyGif">
       <template #placeholder>
         <el-icon><icon-picture /></el-icon>

@@ -18,3 +18,13 @@ body {
 #app {
   height: 100%;
 }
+
+a:focus,
+a:active {
+  outline: none;
+}
+a,a:hover,a:focus {
+  color: var(--el-color-primary);
+  cursor: pointer;
+  text-decoration: none;
+}

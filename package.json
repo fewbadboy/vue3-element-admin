@@ -21,6 +21,7 @@
     "core-js": "^3.8.3",
     "echarts": "^5.3.2",
     "element-plus": "^2.1.9",
+    "fuse.js": "^6.6.1",
     "js-cookie": "^3.0.1",
     "normalize.css": "^8.0.1",
     "nprogress": "^0.2.0",
