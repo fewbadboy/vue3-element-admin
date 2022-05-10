@@ -7,7 +7,7 @@
         <el-menu-item :index="resolvePath(onlyOneChild.path)">
           <menu-item
             :icon="onlyOneChild.meta&&onlyOneChild.meta.icon||(item.meta&&item.meta.icon)"
-            :title="onlyOneChild.meta&&onlyOneChild.meta.title"
+            :title="generateTitle(onlyOneChild.meta.title)"
             :is-only-top="true&&!sidebar.opened"
           />
         </el-menu-item>
@@ -21,7 +21,7 @@
         <menu-item
           v-if="item.meta"
           :icon="item.meta.icon"
-          :title="item.meta.title"
+          :title="generateTitle(item.meta.title)"
           :is-only-top="false&&!sidebar.opened"
         />
       </template>
@@ -38,6 +38,7 @@
 <script>
 import path from 'path'
 import { mapGetters } from 'vuex'
+import { generateTitle } from '@/utils/i18n'
 import { isExternal } from '@/utils/validate'
 import MenuLink from './MenuLink'
 import MenuItem from './MenuItem.vue'
@@ -94,7 +95,8 @@ export default {
         return this.basePath
       }
       return path.resolve(this.basePath, routePath)
-    }
+    },
+    generateTitle
   }
 }
 </script>

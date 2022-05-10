@@ -10,7 +10,7 @@ const state = {
 }
 
 const mutations = {
-  SET_SETTING: (state, { key, value }) => {
+  CHANGE_SETTING: (state, { key, value }) => {
     // https://eslint.org/docs/rules/no-prototype-builtins
     if (Object.prototype.hasOwnProperty.call(state, key)) {
       state[key] = value
@@ -20,7 +20,7 @@ const mutations = {
 
 const actions = {
   setSettings({ commit }, data) {
-    commit('SET_LANGUAGE', data)
+    commit('CHANGE_SETTING', data)
   }
 }
 

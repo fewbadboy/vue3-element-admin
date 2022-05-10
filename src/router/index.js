@@ -19,6 +19,7 @@ import tableRouter from './modules/table'
  *   icon: 'svg-name'                  https://element-plus.org/en-US/component/icon.html#icon-collection get SVG content
  *   affix: false                      if set true, the tag will affix in the tags-view
  *   noCache: false                    if set true, the page will no be cached in <keep-alive>
+ *   external: false                   if set true, the route will hidden in <header-search> component
  * }
  * children: [
  *  {
@@ -164,6 +165,9 @@ export const asyncRoutes = [
   {
     path: '/google-link',
     component: Layout,
+    meta: {
+      external: true
+    },
     children: [
       {
         path: 'https://google.com',

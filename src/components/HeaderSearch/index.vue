@@ -6,22 +6,29 @@
       v-model="search"
       filterable
       remote
+      default-first-option
       class="header-search-select"
       placeholder="Search"
       :loading="loading"
       :remote-method="querySearch"
+      @change="changeSearch"
+      @blur="closeSearch"
     >
       <el-option
         v-for="item in options"
         :key="item.path"
         :value="item"
-        :label="item.title.join(' > ')"
+        :label="routeLable(item)"
       />
     </el-select>
   </div>
 </template>
 
 <script>
+import { toRaw } from 'vue'
+import { mapGetters } from 'vuex'
+import path from 'path'
+import Fuse from 'fuse.js'
 export default {
   data() {
     return {
@@ -29,10 +36,52 @@ export default {
       search: '',
       loading: false,
       options: [],
-      fuse: null
+      searchPool: [],
+      fuse: undefined
     }
   },
+  computed: {
+    ...mapGetters([
+      'language',
+      'permission_routes',
+      'support_pinyin'
+    ])
+  },
+  watch: {
+    language() {
+      this.searchPool = this.generateSearchData(this.permission_routes)
+    },
+    permission_routes() {
+      this.searchPool = this.generateSearchData(this.permission_routes)
+    },
+    searchPool(list) {
+      if (this.language === 'zh' && this.support_pinyin) {
+        this.addPinYinField(list)
+      }
+      this.initFuse(list)
+    }
+  },
+  mounted() {
+    this.searchPool = this.generateSearchData(this.permission_routes)
+  },
   methods: {
+    async addPinYinField(list) {
+      const { default: pinyin } = await import('pinyin')
+      if (Array.isArray(list)) {
+        list.forEach(item => {
+          const title = item.title
+          if (Array.isArray(title)) {
+            title.forEach(t => {
+              t = pinyin(t, {
+                style: pinyin.STYLE_NORMAL
+              }).join('')
+              item.pinyinTitle = t
+            })
+          }
+        })
+        return list
+      }
+    },
     clickIcon() {
       this.show = !this.show
       if (this.show) {
@@ -41,8 +90,67 @@ export default {
         })
       }
     },
-    querySearch() {
-      // do
+    changeSearch(val) {
+      // val is Proxy
+      // Returns the raw, original object of a Vue-created proxy
+      this.$router.push(toRaw(val).item.path)
+      this.search = ''
+      this.show = false
+    },
+    closeSearch() {
+      // this.show = false
+      // this.options = []
+    },
+    initFuse(list) {
+      this.fuse = new Fuse(list, {
+        threshold: 0.2,
+        keys: [{
+          name: 'title',
+          weight: 2
+        }, {
+          name: 'pinyinTitle'
+        }, {
+          name: 'path'
+        }]
+      })
+    },
+    /**
+     * @returns {Array} { path, title: [] }
+     */
+    generateSearchData(routes, basePath = '/', prefixTitle = []) {
+      let res = []
+      for (const route of routes) {
+        // exclude externalLink by the way
+        if ((route.meta && route.meta.external) || route.hidden) continue
+        const data = {
+          path: path.resolve(basePath, route.path),
+          title: [...prefixTitle]
+        }
+        if (route.meta && route.meta.title) {
+          const i18nTitle = this.$t(`route.${route.meta.title}`)
+          data.title = [...data.title, i18nTitle]
+          res.push(data)
+        }
+        if (route.children) {
+          const tempData = this.generateSearchData(route.children, data.path, data.title)
+          if (tempData.length > 0) {
+            res = [...res, ...tempData]
+          }
+        }
+      }
+      return res
+    },
+    querySearch(query) {
+      if (query !== '') {
+        this.loading = true
+        this.options = this.fuse.search(query)
+        this.loading = false
+      } else {
+        this.options = []
+      }
+    },
+    routeLable({ item: { title = [] }} = {}) {
+      return title.join(' > ')
     }
   }
 }
