@@ -9,7 +9,8 @@ const getters = {
   roles: state => state.user.roles,
   avatar: state => state.user.avatar,
   permission_routes: state => state.permission.routes,
-  support_pinyin: state => state.settings.supportPinyinSearch
+  support_pinyin: state => state.settings.supportPinyinSearch,
+  errorLog: state => state.errorLog.logs
 }
 
 export default getters

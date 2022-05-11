@@ -1,4 +1,4 @@
-import { createApp } from 'vue'
+import { createApp, nextTick } from 'vue'
 import Cookies from 'js-cookie'
 import 'normalize.css/normalize.css'
 import ElementPlus from 'element-plus'
@@ -15,8 +15,25 @@ import SvgIcon from '@/components/SvgIcon'
 
 import './icons'
 import './permission'
+// import { errorLogHandler } from '@/utils/errorLog'
 
-createApp(App)
+const app = createApp(App)
+app.config.errorHandler = (err, instance, info) => {
+  console.log(err)
+  nextTick(() => {
+    store.dispatch('errorLog/addErrorLog', {
+      err,
+      instance,
+      info,
+      url: window.location.href
+    })
+  })
+}
+// if (enableErrorLog()) {
+//   app.config.errorHandler = errorLogHandler
+// }
+
+app
   .use(router)
   .use(store)
   .use(ElementPlus, {

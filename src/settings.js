@@ -37,5 +37,5 @@ module.exports = {
    * @description Need show err logs component.
    * The default is only used in the production env
    */
-  errorLog: 'production'
+  errorLog: ['production', 'development']
 }

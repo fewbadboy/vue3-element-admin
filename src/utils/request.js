@@ -56,8 +56,8 @@ server.interceptors.response.use(
           type: 'warning',
           confirmButtonText: 'Re-Login',
           cancelButtonText: 'Cancel'
-        }).then(_ => {
-          store.dispatch('user/resetToken').then(_ => {
+        }).then(() => {
+          store.dispatch('user/resetToken').then(() => {
             location.reload()
           })
         })

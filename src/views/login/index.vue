@@ -102,7 +102,7 @@ export default {
         if (isValid) {
           this.loading = true
           store.dispatch('user/login', this.loginForm)
-            .then(_ => {
+            .then(() => {
               this.$router.push({ path: '/' })
               this.loading = false
             })

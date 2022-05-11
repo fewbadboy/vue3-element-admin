@@ -4,6 +4,7 @@
     <breadcrumb class="breadcrumb-container" />
     <div class="right-menu">
       <header-search class="right-menu-item" />
+      <error-log class="right-menu-item" />
       <el-tooltip :content="$t('navbar.size')" effect="dark" placement="bottom">
         <size-select class="right-menu-item hover-effect" />
       </el-tooltip>
@@ -20,7 +21,7 @@
               {{ $t('navbar.dashboard') }}
             </router-link>
           </el-dropdown-item>
-          <el-dropdown-item divided>
+          <el-dropdown-item divided class="avatar-item">
             <el-link :underline="false">
               {{ $t('navbar.logOut') }}
             </el-link>
@@ -37,6 +38,7 @@ import store from '@/store'
 import Hamburger from '@/components/Hamburger'
 import Breadcrumb from '@/components/Breadcrumb'
 import HeaderSearch from '@/components/HeaderSearch'
+import ErrorLog from '@/components/ErrorLog'
 import SizeSelect from '@/components/SizeSelect'
 import LangSelect from '@/components/LangSelect'
 export default {
@@ -45,6 +47,7 @@ export default {
     Hamburger,
     Breadcrumb,
     HeaderSearch,
+    ErrorLog,
     SizeSelect,
     LangSelect
   },
@@ -113,3 +116,12 @@ export default {
   }
 }
 </style>
+
+<style lang="scss">
+.el-dropdown-menu__item--divided {
+  &.avatar-item {
+    margin: 0;
+  }
+}
+</style>
+

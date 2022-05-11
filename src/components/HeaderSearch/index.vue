@@ -19,6 +19,7 @@
         :key="item.path"
         :value="item"
         :label="routeLable(item)"
+        class="filter-item"
       />
     </el-select>
   </div>
@@ -85,7 +86,7 @@ export default {
     clickIcon() {
       this.show = !this.show
       if (this.show) {
-        this.$nextTick(_ => {
+        this.$nextTick(() => {
           this.$refs.headerSearchSelect.focus()
         })
       }
@@ -98,8 +99,9 @@ export default {
       this.show = false
     },
     closeSearch() {
-      // this.show = false
-      // this.options = []
+      this.show = false
+      this.search = ''
+      this.options = []
     },
     initFuse(list) {
       this.fuse = new Fuse(list, {
@@ -181,4 +183,15 @@ export default {
     color: var(--el-color-primary);
   }
 }
+</style>
+
+<style lang="scss" scoped>
+/* change selected color */
+// .el-select-dropdown__item {
+//   &.selected {
+//     &.filter-item {
+//       color: var(--el-color-success)
+//     }
+//   }
+// }
 </style>
