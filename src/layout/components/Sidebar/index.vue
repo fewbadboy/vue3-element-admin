@@ -12,7 +12,7 @@
         :collapse-transition="false"
       >
         <sidebar-item
-          v-for="route in permission_routes"
+          v-for="route in permissionRoutes"
           :key="route.path"
           :item="route"
           :base-path="route.path"
@@ -41,7 +41,7 @@ export default {
   },
   computed: {
     ...mapGetters([
-      'permission_routes',
+      'permissionRoutes',
       'sidebar'
     ]),
     isCollapse() {

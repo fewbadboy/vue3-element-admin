@@ -41,6 +41,12 @@ export default {
     default: 'Default',
     small: 'Small'
   },
+  tagsView: {
+    refresh: 'Refresh',
+    close: 'Close',
+    closeOthers: 'Close Others',
+    closeAll: 'Close All'
+  },
   settings: {
     title: 'Settings'
   }

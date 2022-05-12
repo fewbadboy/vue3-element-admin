@@ -44,26 +44,26 @@ export default {
   computed: {
     ...mapGetters([
       'language',
-      'permission_routes',
-      'support_pinyin'
+      'permissionRoutes',
+      'supportPinyin'
     ])
   },
   watch: {
     language() {
-      this.searchPool = this.generateSearchData(this.permission_routes)
+      this.searchPool = this.generateSearchData(this.permissionRoutes)
     },
-    permission_routes() {
-      this.searchPool = this.generateSearchData(this.permission_routes)
+    permissionRoutes() {
+      this.searchPool = this.generateSearchData(this.permissionRoutes)
     },
     searchPool(list) {
-      if (this.language === 'zh' && this.support_pinyin) {
+      if (this.language === 'zh' && this.supportPinyin) {
         this.addPinYinField(list)
       }
       this.initFuse(list)
     }
   },
   mounted() {
-    this.searchPool = this.generateSearchData(this.permission_routes)
+    this.searchPool = this.generateSearchData(this.permissionRoutes)
   },
   methods: {
     async addPinYinField(list) {
