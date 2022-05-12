@@ -8,7 +8,7 @@
       remote
       default-first-option
       class="header-search-select"
-      placeholder="Search"
+      :placeholder="$t('navbar.Search')"
       :loading="loading"
       :remote-method="querySearch"
       @change="changeSearch"

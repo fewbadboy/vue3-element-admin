@@ -28,12 +28,18 @@ export default {
     externalLink: 'External Link'
   },
   navbar: {
+    Search: 'Search',
     dashboard: 'Dashboard',
     github: 'Github',
     logOut: 'Log Out',
     profile: 'Profile',
     theme: 'Theme',
     size: 'Global Size'
+  },
+  fontSize: {
+    large: 'Large',
+    default: 'Default',
+    small: 'Small'
   },
   settings: {
     title: 'Settings'

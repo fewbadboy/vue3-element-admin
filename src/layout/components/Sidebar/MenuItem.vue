@@ -33,7 +33,6 @@ export default {
         vnodes.push(h(resolveComponent('svg-icon'), { 'icon-class': this.icon }))
       }
     }
-
     if (this.title) {
       vnodes.push(h('span', { class: ['sidebar-title'] }, this.title))
     }

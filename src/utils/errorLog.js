@@ -14,13 +14,22 @@ export function enableErrorLog() {
   return false
 }
 
+/**
+ * acpture errors from following sources:
+ * Component renders
+ * Event handlers
+ * Lifecycle hooks
+ * setup() function
+ * Watchers
+ * Custom dorective hooks
+ * Transition hooks
+ */
 export function errorLogHandler(err, instance, info) {
   nextTick(() => {
     store.dispatch('errorLog/addErrorLog', {
       err,
       instance,
-      info,
-      url: window.location.href
+      info
     })
   })
 }

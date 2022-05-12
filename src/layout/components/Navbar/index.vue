@@ -5,8 +5,13 @@
     <div class="right-menu">
       <header-search class="right-menu-item" />
       <error-log class="right-menu-item" />
-      <el-tooltip :content="$t('navbar.size')" effect="dark" placement="bottom">
-        <size-select class="right-menu-item hover-effect" />
+      <el-tooltip
+        :disabled="disabledTooltip"
+        :content="$t('navbar.size')"
+        effect="dark"
+        placement="bottom"
+      >
+        <size-select class="right-menu-item hover-effect" @toggle="toggleShowTooltip" />
       </el-tooltip>
       <lang-select class="right-menu-item hover-effect" />
       <el-dropdown class="right-menu-item hover-effect">
@@ -22,7 +27,7 @@
             </router-link>
           </el-dropdown-item>
           <el-dropdown-item divided class="avatar-item">
-            <el-link :underline="false">
+            <el-link :underline="false" @click.prevent="logout">
               {{ $t('navbar.logOut') }}
             </el-link>
           </el-dropdown-item>
@@ -33,6 +38,7 @@
 </template>
 
 <script>
+import { setToken } from '@/utils/auth'
 import { mapGetters } from 'vuex'
 import store from '@/store'
 import Hamburger from '@/components/Hamburger'
@@ -53,6 +59,7 @@ export default {
   },
   data() {
     return {
+      disabledTooltip: false,
       avater: 'https://cube.elemecdn.com/9/c2/f0ee8a3c7c9638a54940382568c9dpng.png'
     }
   },
@@ -67,6 +74,14 @@ export default {
     },
     errorHandler() {
       return true
+    },
+    toggleShowTooltip() {
+      this.disabledTooltip = !this.disabledTooltip
+    },
+    async logout() {
+      await store.dispatch('user/logout')
+      setToken('')
+      this.$router.push('/login')
     }
   }
 }

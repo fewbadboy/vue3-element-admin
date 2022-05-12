@@ -1,14 +1,14 @@
 <template>
   <div v-if="errorLog.length > 0">
-    <el-badge is-dot>
-      <el-button @click.stop="dialogVisible=true">
-        <svg-icon icon-class="education" />
+    <el-badge is-dot style="line-height: 25px" @click="dialogVisible=true">
+      <el-button style="padding: 8px 10px" size="small" type="danger">
+        <svg-icon icon-class="bug" />
       </el-button>
     </el-badge>
     <el-dialog :model-value="dialogVisible">
       <template #title>
         <span style="margin-right: 10px">Error Log</span>
-        <el-button type="primary" @click="clearAll">
+        <el-button size="small" type="primary" @click="clearAll">
           Clear All
         </el-button>
       </template>
@@ -18,19 +18,13 @@
             <div>
               <span class="message-title">Message:</span>
               <el-tag type="danger">
-                {{ row.message }}
+                {{ row.err }}
               </el-tag>
             </div>
             <div>
               <span class="message-title">Info:</span>
               <el-tag type="warning">
-                {{ row.instance }} error in {{ row.Info }}
-              </el-tag>
-            </div>
-            <div>
-              <span class="message-title">Url:</span>
-              <el-tag type="success">
-                {{ row.url }}
+                {{ row.info }}
               </el-tag>
             </div>
           </template>

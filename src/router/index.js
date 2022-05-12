@@ -10,7 +10,7 @@ import componentsRouter from './modules/components'
 import tableRouter from './modules/table'
 /**
  * path: ''                            each root node must start with '/'
- * name: 'route-name'                  the name is used by tagsView title
+ * name: 'route-name'                  the name is used by <keep-alive>
  * redirect: 'redirect-path'
  * hidden: false                       if set true, item will not show in the sidebar
  * meta: {

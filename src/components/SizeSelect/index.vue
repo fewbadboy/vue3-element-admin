@@ -1,17 +1,21 @@
 <template>
-  <el-dropdown trigger="click" @command="handleSetSize">
+  <el-dropdown
+    trigger="click"
+    @visible-change="visibleChange"
+    @command="handleSetSize"
+  >
     <div>
       <svg-icon class="size-icon" icon-class="size" />
     </div>
     <template #dropdown>
-      <el-dropdown-menu>
+      <el-dropdown-menu class="config-size">
         <el-dropdown-item
           v-for="item in sizeOptions"
           :key="item.value"
           :disabled="size===item.value"
           :command="item.value"
         >
-          {{ item.label }}
+          {{ $t('fontSize.' + item.label) }}
         </el-dropdown-item>
       </el-dropdown-menu>
     </template>
@@ -23,6 +27,7 @@ import { mapGetters } from 'vuex'
 import store from '@/store'
 import { ElMessage } from 'element-plus'
 export default {
+  emits: ['toggle'],
   data() {
     return {
       sizeOptions: [
@@ -38,6 +43,9 @@ export default {
     ])
   },
   methods: {
+    visibleChange() {
+      this.$emit('toggle')
+    },
     handleSetSize(size) {
       store.dispatch('app/setSize', size)
       ElMessage({
