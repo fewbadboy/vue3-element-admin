@@ -36,6 +36,17 @@ import tableRouter from './modules/table'
  */
 export const constantRoutes = [
   {
+    path: '/redirect',
+    component: Layout,
+    hidden: true,
+    children: [
+      {
+        path: ':path(.*)',
+        component: () => import('@/views/redirect')
+      }
+    ]
+  },
+  {
     path: '/login',
     name: 'Login',
     hidden: true,
@@ -80,6 +91,7 @@ export const constantRoutes = [
     children: [
       {
         path: 'view',
+        name: 'View',
         meta: {
           title: 'view'
         },
@@ -88,6 +100,7 @@ export const constantRoutes = [
         children: [
           {
             path: 'wrap',
+            name: 'Wrap',
             meta: {
               title: 'wrap'
             },
@@ -96,6 +109,7 @@ export const constantRoutes = [
             children: [
               {
                 path: 'main',
+                name: 'Main',
                 meta: {
                   title: 'main'
                 },
@@ -105,6 +119,7 @@ export const constantRoutes = [
           },
           {
             path: 'menu2',
+            name: 'Menu2',
             meta: {
               title: 'menu2'
             },
@@ -126,6 +141,7 @@ export const constantRoutes = [
     children: [
       {
         path: 'index',
+        name: 'About',
         meta: {
           title: 'about'
         },

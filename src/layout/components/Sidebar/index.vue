@@ -3,7 +3,6 @@
     <logo-part :collapse="isCollapse" />
     <el-scrollbar wrap-class="scrollbar-wrapper">
       <el-menu
-        mode="vertical"
         :default-active="activeMenu"
         :collapse="isCollapse"
         :background-color="variables.menuBgColor"

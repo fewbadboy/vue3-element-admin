@@ -10,6 +10,12 @@
         @contextmenu.prevent="openMenu(tag, $event)"
       >
         {{ generateTitle(tag.title) }}
+        <svg-icon
+          v-if="!isAffix(tag)"
+          icon-class="close"
+          class="icon-close"
+          @click="closeSelectedTag(tag)"
+        />
       </router-link>
       <ul
         v-show="visible"
@@ -53,14 +59,35 @@ export default {
     ])
   },
   watch: {
-    $route() {
-      // do
+    $route: {
+      handler() {
+        this.addTags()
+        this.moveToCurrentTag()
+      }
+    },
+    visitedViews() {
+      console.log(this.visitedViews)
     }
+  },
+  created() {
+    this.initTags()
+    this.addTags()
   },
   methods: {
     generateTitle,
+    isActive({ path = '' } = {}) {
+      return path === this.$route.path
+    },
     isAffix(tag) {
       return tag.meta && tag.meta.affix
+    },
+    initTags() {
+      const affixTags = this.affixTags = this.filterAffixTags(this.permissionRoutes)
+      for (const tag of affixTags) {
+        if (tag.name) {
+          store.dispatch('tagsView/addVisitedView', tag)
+        }
+      }
     },
     filterAffixTags(routes, basePath = '/') {
       let tags = []
@@ -89,8 +116,31 @@ export default {
         store.dispatch('tagsView/addView', this.$route)
       }
     },
-    closeSelectedTag() {
-      // do
+    moveToCurrentTag() {
+      // nextTick(() => {
+      //   store.dispatch('tagsView/updateVisitedView', this.$route)
+      // })
+    },
+    closeSelectedTag(view) {
+      store.dispatch('tagsView/delView', view).then(({ visitedViews }) => {
+        console.log(visitedViews)
+        if (this.isActive(view)) {
+          this.toLastView(visitedViews, view)
+        }
+      })
+    },
+    toLastView(visitedViews, view) {
+      const lastView = visitedViews.slice(-1)[0]
+      if (lastView) {
+        this.$router.push(lastView.fullPath)
+      } else {
+        // need relaod home page
+        if (view.name === 'Dashboard') {
+          this.$router.replace({ path: `/redirect${view.fullPath}` })
+        } else {
+          this.$router.push('/')
+        }
+      }
     },
     openMenu(tag, $event) {
       this.visible = true
@@ -111,10 +161,50 @@ export default {
   width: 100%;
 
   .tags-view-container {
+    display: flex;
     height: 34px;
     background: #fff;
     border-bottom: 1px solid #d8dce5;
+    text-align: left;
     box-shadow: 0 1px 3px 0 rgba(0, 0, 0, .12), 0 0 3px 0 rgba(0, 0, 0, .04);
+
+    .tags-view-item {
+      display: inline-block;
+      margin: 4px;
+      padding: 0 8px;
+      font-size: 14px;
+      line-height: 26px;
+      border: 1px solid #d8dce5;
+      &:first-of-type {
+        margin-left: 16px;
+      }
+      &:last-of-type {
+        margin-right: 16px;
+      }
+      &.router-link-active {
+        color: var(--el-color-white);
+        background-color: #42b983;
+        border-color: #42b983;
+        &::before {
+          content: '';
+          display: inline-block;
+          margin-right: 4px;
+          width: 8px;
+          height: 8px;
+          border-radius: 50%;
+          background-color: var(--el-color-white);
+        }
+      }
+      .icon-close {
+        width: 12px;
+        height: 12px;
+        border-radius: 50%;
+        transition: all .3s cubic-bezier(.645, .045, .355, 1);
+        &:hover {
+          background-color: #d8dce5;
+        }
+      }
+    }
   }
 }
 </style>

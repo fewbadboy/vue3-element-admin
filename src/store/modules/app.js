@@ -8,19 +8,18 @@ const state = {
   language: getLanguage(),
   size: Cookies.get('size') || 'default'
 }
-
 const mutations = {
   TOGGLE_SIDEBAR: (state) => {
     state.sidebar.opened = !state.sidebar.opened
     if (state.sidebar.opened) {
-      Cookies.set('sidebarStatus', 1)
+      Cookies.set('sidebarStatus', true)
     } else {
-      Cookies.set('sidebarStatus', 0)
+      Cookies.set('sidebarStatus', false)
     }
   },
   CLOSE_SIDEBAR: (state) => {
     state.sidebar.opened = false
-    Cookies.set('sidebarStatus', 0)
+    Cookies.set('sidebarStatus', false)
   },
   SET_LANGUAGE: (state, language) => {
     state.language = language
