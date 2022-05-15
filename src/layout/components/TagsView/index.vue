@@ -1,6 +1,6 @@
 <template>
-  <el-scrollbar @scroll="handleScroll" class="scrollbar">
-    <div class="tags-view-container">
+  <div class="tags-view-container">
+    <el-scrollbar ref="scrollbar" @scroll="handleScroll" class="scrollbar">
       <router-link
         v-for="tag in visitedViews"
         :key="tag.path"
@@ -14,7 +14,7 @@
           v-if="!isAffix(tag)"
           icon-class="close"
           class="icon-close"
-          @click="closeSelectedTag(tag)"
+          @click.prevent.stop="closeSelectedTag(tag)"
         />
       </router-link>
       <ul
@@ -33,12 +33,13 @@
           {{ $t('tagsView.closeAll') }}
         </li>
       </ul>
-    </div>
-  </el-scrollbar>
+    </el-scrollbar>
+  </div>
 </template>
 
 <script>
 import path from 'path'
+import { nextTick } from 'vue'
 import { mapGetters } from 'vuex'
 import { generateTitle } from '@/utils/i18n'
 import store from '@/store'
@@ -54,6 +55,7 @@ export default {
   },
   computed: {
     ...mapGetters([
+      'sidebar',
       'visitedViews',
       'permissionRoutes'
     ])
@@ -117,13 +119,25 @@ export default {
       }
     },
     moveToCurrentTag() {
-      // nextTick(() => {
-      //   store.dispatch('tagsView/updateVisitedView', this.$route)
-      // })
+      nextTick(() => {
+        const len = this.sidebar.opened ? 210 : 54
+        const { left, width, right } = document.getElementsByClassName('tags-view-item router-link-active')[0].getBoundingClientRect()
+        console.log(document.getElementsByClassName('tags-view-item router-link-active')[0].getBoundingClientRect())
+        console.log(this.$refs.scrollbar)
+
+        if (left < len) {
+          // this.$refs.scrollbar.setScrollLeft(Math.ceil(len - ~~left))
+          console.log(left, width)
+          this.$refs.scrollbar.setScrollLeft(0)
+        }
+        if (right > innerWidth) {
+          console.log(Math.ceil(right - innerWidth))
+          this.$refs.scrollbar.setScrollLeft(Math.ceil(right - innerWidth))
+        }
+      })
     },
     closeSelectedTag(view) {
       store.dispatch('tagsView/delView', view).then(({ visitedViews }) => {
-        console.log(visitedViews)
         if (this.isActive(view)) {
           this.toLastView(visitedViews, view)
         }
@@ -132,6 +146,7 @@ export default {
     toLastView(visitedViews, view) {
       const lastView = visitedViews.slice(-1)[0]
       if (lastView) {
+        console.log(lastView)
         this.$router.push(lastView.fullPath)
       } else {
         // need relaod home page
@@ -157,20 +172,18 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.scrollbar {
-  width: 100%;
-
-  .tags-view-container {
-    display: flex;
-    height: 34px;
-    background: #fff;
-    border-bottom: 1px solid #d8dce5;
-    text-align: left;
-    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, .12), 0 0 3px 0 rgba(0, 0, 0, .04);
-
+.tags-view-container {
+  height: 34px;
+  background: #fff;
+  border-bottom: 1px solid #d8dce5;
+  text-align: left;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, .12), 0 0 3px 0 rgba(0, 0, 0, .04);
+  .scrollbar {
+    width: 100%;
+    white-space: nowrap;
     .tags-view-item {
       display: inline-block;
-      margin: 4px;
+      // margin: 3px 4px;
       padding: 0 8px;
       font-size: 14px;
       line-height: 26px;
@@ -188,6 +201,7 @@ export default {
         &::before {
           content: '';
           display: inline-block;
+          position: relative;
           margin-right: 4px;
           width: 8px;
           height: 8px;
@@ -196,6 +210,7 @@ export default {
         }
       }
       .icon-close {
+        position: relative;
         width: 12px;
         height: 12px;
         border-radius: 50%;

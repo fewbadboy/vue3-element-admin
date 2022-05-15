@@ -3,7 +3,7 @@ import { getLanguage } from '@/lang'
 
 const state = {
   sidebar: {
-    opened: !!Cookies.get('sidebarStatus')
+    opened: Cookies.get('sidebarStatus') ? Cookies.get('sidebarStatus') : true
   },
   language: getLanguage(),
   size: Cookies.get('size') || 'default'
@@ -21,6 +21,10 @@ const mutations = {
     state.sidebar.opened = false
     Cookies.set('sidebarStatus', false)
   },
+  OPEN_SIDEBAR: (state) => {
+    state.sidebar.opened = true
+    Cookies.set('sidebarStatus', true)
+  },
   SET_LANGUAGE: (state, language) => {
     state.language = language
     Cookies.set('language', language)
@@ -37,6 +41,9 @@ const actions = {
   },
   closeSidebar({ commit }) {
     commit('CLOSE_SIDEBAR')
+  },
+  openSidebar({ commit }) {
+    commit('OPEN_SIDEBAR')
   },
   setLanguage({ commit }, language) {
     commit('SET_LANGUAGE', language)

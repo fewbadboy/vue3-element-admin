@@ -80,6 +80,7 @@ export default {
     },
     async logout() {
       await store.dispatch('user/logout')
+      store.dispatch('app/openSidebar')
       setToken('')
       this.$router.push('/login')
     }
