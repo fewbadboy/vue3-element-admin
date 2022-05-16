@@ -34,7 +34,7 @@ export default {
   data() {
     return {
       showLogo: true,
-      activeMenu: '2',
+      activeMenu: '/dashboard',
       hidden: false
     }
   },
@@ -48,6 +48,11 @@ export default {
     },
     variables() {
       return variables
+    }
+  },
+  watch: {
+    $route() {
+      this.activeMenu = this.$route.path
     }
   }
 }

@@ -1,6 +1,6 @@
 <template>
   <div class="tags-view-container">
-    <el-scrollbar ref="scrollbar" @scroll="handleScroll" class="scrollbar">
+    <el-scrollbar id="scrollbar" ref="scrollbar" @scroll="handleScroll" class="scrollbar">
       <router-link
         v-for="tag in visitedViews"
         :key="tag.path"
@@ -17,23 +17,25 @@
           @click.prevent.stop="closeSelectedTag(tag)"
         />
       </router-link>
-      <ul
-        v-show="visible"
-      >
-        <li key="refresh">
-          {{ $t('tagsView.refresh') }}
-        </li>
-        <li key="close">
-          {{ $t('tagsView.close') }}
-        </li>
-        <li key="others">
-          {{ $t('tagsView.closeOthers') }}
-        </li>
-        <li key="all">
-          {{ $t('tagsView.closeAll') }}
-        </li>
-      </ul>
     </el-scrollbar>
+    <ul
+      v-show="visible"
+      :style="{top: `${top}px`, left: `${left}px`}"
+      class="tag-view-menu"
+    >
+      <li key="refresh" @click="refreshSelectedTag(selectedTag)">
+        {{ $t('tagsView.refresh') }}
+      </li>
+      <li v-if="!isAffix(selectedTag)" key="close" @click="closeSelectedTag(selectedTag)">
+        {{ $t('tagsView.close') }}
+      </li>
+      <li key="others" @click="closeOthersTags">
+        {{ $t('tagsView.closeOthers') }}
+      </li>
+      <li key="all" @click="closeAllTags(selectedTag)">
+        {{ $t('tagsView.closeAll') }}
+      </li>
+    </ul>
   </div>
 </template>
 
@@ -67,8 +69,12 @@ export default {
         this.moveToCurrentTag()
       }
     },
-    visitedViews() {
-      console.log(this.visitedViews)
+    visible(value) {
+      if (value) {
+        document.body.addEventListener('click', this.closeMenu)
+      } else {
+        document.body.removeEventListener('click', this.closeMenu)
+      }
     }
   },
   created() {
@@ -120,26 +126,27 @@ export default {
     },
     moveToCurrentTag() {
       nextTick(() => {
-        const len = this.sidebar.opened ? 210 : 54
-        const { left, width, right } = document.getElementsByClassName('tags-view-item router-link-active')[0].getBoundingClientRect()
-        console.log(document.getElementsByClassName('tags-view-item router-link-active')[0].getBoundingClientRect())
-        console.log(this.$refs.scrollbar)
+        const sidebarWidth = this.sidebar.opened ? 210 : 54
+        if (document.getElementsByClassName('tags-view-item router-link-active')) {
+          console.log(document.getElementsByClassName('tags-view-item router-link-active')[0])
+          const { left, right } = document.getElementsByClassName('tags-view-item router-link-active')[0].getBoundingClientRect()
 
-        if (left < len) {
-          // this.$refs.scrollbar.setScrollLeft(Math.ceil(len - ~~left))
-          console.log(left, width)
-          this.$refs.scrollbar.setScrollLeft(0)
-        }
-        if (right > innerWidth) {
-          console.log(Math.ceil(right - innerWidth))
-          this.$refs.scrollbar.setScrollLeft(Math.ceil(right - innerWidth))
-        }
-      })
-    },
-    closeSelectedTag(view) {
-      store.dispatch('tagsView/delView', view).then(({ visitedViews }) => {
-        if (this.isActive(view)) {
-          this.toLastView(visitedViews, view)
+          if (left < sidebarWidth) {
+            const { left: overLeft } = document.getElementById('scrollbar').getElementsByClassName('el-scrollbar__view')[0].getBoundingClientRect()
+            if (overLeft < sidebarWidth) {
+              this.$refs.scrollbar.setScrollLeft(Math.ceil(sidebarWidth - ~~left) - sidebarWidth + overLeft)
+            } else {
+              this.$refs.scrollbar.setScrollLeft(Math.ceil(sidebarWidth - ~~left))
+            }
+          }
+          if (right > innerWidth) {
+            const { left: overLeft } = document.getElementById('scrollbar').getElementsByClassName('el-scrollbar__view')[0].getBoundingClientRect()
+            if (overLeft < sidebarWidth) {
+              this.$refs.scrollbar.setScrollLeft(Math.ceil(right - innerWidth) + sidebarWidth - overLeft + 16)
+            } else {
+              this.$refs.scrollbar.setScrollLeft(Math.ceil(right - innerWidth) + 16)
+            }
+          }
         }
       })
     },
@@ -158,14 +165,47 @@ export default {
       }
     },
     openMenu(tag, $event) {
+      const sidebarWidth = this.sidebar.opened ? 210 : 54
       this.visible = true
       this.selectedTag = tag
+      this.left = $event.pageX - sidebarWidth - 16
+      this.top = 36
     },
     closeMenu() {
       this.visible = false
     },
     handleScroll() {
       this.closeMenu()
+    },
+    refreshSelectedTag(view) {
+      store.dispatch('tagsView/delCachedView', view).then(() => {
+        console.log(view)
+        const { fullPath } = view
+        nextTick(() => {
+          this.$router.replace(`/redirect${fullPath}`)
+        })
+      })
+    },
+    closeSelectedTag(view) {
+      store.dispatch('tagsView/delView', view).then(({ visitedViews }) => {
+        if (this.isActive(view)) {
+          this.toLastView(visitedViews, view)
+        }
+      })
+    },
+    closeOthersTags() {
+      this.$router.push(this.selectedTag)
+      store.dispatch('tagsView/delOthersViews', this.selectedTag).then(() => {
+        this.moveToCurrentTag()
+      })
+    },
+    closeAllTags(view) {
+      store.dispatch('tagsView/delAllViews').then(({ visitedViews }) => {
+        if (this.affixTags.some(tag => tag.path === view.path)) {
+          return true
+        }
+        this.toLastView(visitedViews, view)
+      })
     }
   }
 }
@@ -173,6 +213,7 @@ export default {
 
 <style lang="scss" scoped>
 .tags-view-container {
+  position: relative;
   height: 34px;
   background: #fff;
   border-bottom: 1px solid #d8dce5;
@@ -183,7 +224,7 @@ export default {
     white-space: nowrap;
     .tags-view-item {
       display: inline-block;
-      // margin: 3px 4px;
+      margin: 3px 4px;
       padding: 0 8px;
       font-size: 14px;
       line-height: 26px;
@@ -216,8 +257,25 @@ export default {
         border-radius: 50%;
         transition: all .3s cubic-bezier(.645, .045, .355, 1);
         &:hover {
-          background-color: #d8dce5;
+          background-color: var(--el-color-info-light-7);
         }
+      }
+    }
+  }
+  .tag-view-menu {
+    position: absolute;
+    margin: 0;
+    padding: 4px 0;
+    border-radius: 4px;
+    color: var(--el-text-color-primary);
+    background: var(--el-color-white);
+    list-style: none;
+    box-shadow: 2px 2px 3px 0 rgba(0, 0, 0, .3);
+    li {
+      padding: 4px 8px;
+      &:hover {
+        cursor: pointer;
+        background: var(--el-color-info-light-9);
       }
     }
   }
