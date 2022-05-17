@@ -66,7 +66,9 @@ export default {
     $route: {
       handler() {
         this.addTags()
-        this.moveToCurrentTag()
+        if (document.getElementsByClassName('tags-view-item router-link-active')[0]) {
+          this.moveToCurrentTag()
+        }
       }
     },
     visible(value) {
@@ -127,8 +129,7 @@ export default {
     moveToCurrentTag() {
       nextTick(() => {
         const sidebarWidth = this.sidebar.opened ? 210 : 54
-        if (document.getElementsByClassName('tags-view-item router-link-active')) {
-          console.log(document.getElementsByClassName('tags-view-item router-link-active')[0])
+        if (document.getElementsByClassName('tags-view-item router-link-active')[0]) {
           const { left, right } = document.getElementsByClassName('tags-view-item router-link-active')[0].getBoundingClientRect()
 
           if (left < sidebarWidth) {
@@ -179,9 +180,9 @@ export default {
     },
     refreshSelectedTag(view) {
       store.dispatch('tagsView/delCachedView', view).then(() => {
-        console.log(view)
         const { fullPath } = view
         nextTick(() => {
+          console.log(fullPath)
           this.$router.replace(`/redirect${fullPath}`)
         })
       })
