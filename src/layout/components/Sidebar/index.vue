@@ -34,7 +34,6 @@ export default {
   data() {
     return {
       showLogo: true,
-      activeMenu: '/dashboard',
       hidden: false
     }
   },
@@ -43,6 +42,10 @@ export default {
       'permissionRoutes',
       'sidebar'
     ]),
+    activeMenu() {
+      const { path } = this.$route
+      return path
+    },
     isCollapse() {
       return !this.sidebar.opened
     },
