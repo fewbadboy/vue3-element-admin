@@ -35,4 +35,13 @@ export default {
   height: 128px;
   transform: scale(0.1);
 }
+//  or  mask
+// .add::before {
+//   content: '';
+//   display: inline-block;
+//   background: red;
+//   mask-image: url('~@/imgs/add.svg');
+//   width: 16px;
+//   height: 16px;
+// }
 </style>
